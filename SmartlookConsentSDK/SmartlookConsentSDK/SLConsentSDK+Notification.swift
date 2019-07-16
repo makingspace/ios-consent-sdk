@@ -13,4 +13,8 @@ extension SmartlookConsentSDK {
      This notification is sent whenever user touches the consents, regardless there is an actual change in the consents or not.
      */
     public static let consentsTouchedNotification = Notification.Name(rawValue: "com.smartlook.SmartlookConsentSDK.notification.consentsTouched")
+    /**
+     This notification is sent whenever the user should be asked for consent.
+     */
+    public static let consentsRequestedNotification = Notification.Name(rawValue: "com.smartlook.SmartlookConsentSDK.notification.consentsRequested")
 }

@@ -64,11 +64,12 @@ import Foundation
             keyWindow.rootViewController = UIViewController()
             keyWindow.backgroundColor = UIColor.clear
             viewController.consents = consentsSettings
-            DispatchQueue.main.async {
-                UserDefaults.standard.set(true, forKey: "\(keyPrefix)-shown")
-                keyWindow.makeKeyAndVisible()
-                keyWindow.rootViewController?.present(viewController, animated: true, completion: nil)
-            }
+            NotificationCenter.default.post(name: SmartlookConsentSDK.consentsRequestedNotification, object: nil)
+//            DispatchQueue.main.async {
+//                UserDefaults.standard.set(true, forKey: "\(keyPrefix)-shown")
+//                keyWindow.makeKeyAndVisible()
+//                keyWindow.rootViewController?.present(viewController, animated: true, completion: nil)
+//            }
         }
     }
     
