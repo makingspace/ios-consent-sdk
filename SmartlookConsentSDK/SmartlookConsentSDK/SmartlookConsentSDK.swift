@@ -65,11 +65,11 @@ import Foundation
             keyWindow.backgroundColor = UIColor.clear
             viewController.consents = consentsSettings
             NotificationCenter.default.post(name: SmartlookConsentSDK.consentsRequestedNotification, object: nil)
-//            DispatchQueue.main.async {
-//                UserDefaults.standard.set(true, forKey: "\(keyPrefix)-shown")
-//                keyWindow.makeKeyAndVisible()
-//                keyWindow.rootViewController?.present(viewController, animated: true, completion: nil)
-//            }
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(true, forKey: "\(keyPrefix)-shown")
+                keyWindow.makeKeyAndVisible()
+                keyWindow.rootViewController?.present(viewController, animated: true, completion: nil)
+            }
         }
     }
     
@@ -90,7 +90,8 @@ import Foundation
             consentsHaveBeenSet = consentsHaveBeenSet && consentState(for: key) != .unknown
         }
         guard consentsHaveBeenSet else {
-            show(with: consentsSettings, callback: callback)
+//            show(with: consentsSettings, callback: callback)
+            NotificationCenter.default.post(name: SmartlookConsentSDK.consentsRequestedNotification, object: nil)
             return
         }
         NotificationCenter.default.post(name: SmartlookConsentSDK.consentsTouchedNotification, object: nil)
