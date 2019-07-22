@@ -40,6 +40,8 @@ import Foundation
             return UserDefaults.standard.bool(forKey: "\(keyPrefix)-shown")
         }
     }
+    
+    
 
     /**
      This method always opens the Control Panel for user to review the current consents states and calls the callback once the user confirm her choice in with the button there.
@@ -80,6 +82,19 @@ import Foundation
     @objc public static func check(callback: @escaping RequestIdCallback) {
         check(with: defaultConsentsSettings, callback: callback)
     }
+    
+    /**
+     This method checks if the user reviewed the privacy policies enumerated in `ConsentsSettings` array. It returns whether or not the policies have been reviewed.
+     */
+    public static func check(with consentsSettings: ConsentsSettings) -> Bool {
+        var consentsHaveBeenSet = true
+        consentsSettings.forEach { (key: SmartlookConsentSDK.Consent, value: SmartlookConsentSDK.ConsentState) in
+            consentsHaveBeenSet = consentsHaveBeenSet && consentState(for: key) != .unknown
+        }
+        
+        return consentsHaveBeenSet
+    }
+    
 
     /**
      This method checks if the user reviewed the privacy policies enumerated in `ConsentsSettings` array. If not, it opens the Control Panel and calls the callback once the user confirm her choice in with the button there. If the consents were already reviewed by the user, callback is called immediatelly.
@@ -90,8 +105,7 @@ import Foundation
             consentsHaveBeenSet = consentsHaveBeenSet && consentState(for: key) != .unknown
         }
         guard consentsHaveBeenSet else {
-//            show(with: consentsSettings, callback: callback)
-            NotificationCenter.default.post(name: SmartlookConsentSDK.consentsRequestedNotification, object: nil)
+            show(with: consentsSettings, callback: callback)
             return
         }
         NotificationCenter.default.post(name: SmartlookConsentSDK.consentsTouchedNotification, object: nil)

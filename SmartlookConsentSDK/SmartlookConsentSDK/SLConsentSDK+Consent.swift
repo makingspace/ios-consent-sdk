@@ -38,7 +38,7 @@ extension SmartlookConsentSDK {
         return "\(SmartlookConsentSDK.keyPrefix)-\(consent)-consent"
     }
     
-    static func set(state: ConsentState, for consent: Consent) {
+    public static func set(state: ConsentState, for consent: Consent) {
         switch state {
         case .unknown:
             UserDefaults.standard.removeObject(forKey: key(for: consent))
