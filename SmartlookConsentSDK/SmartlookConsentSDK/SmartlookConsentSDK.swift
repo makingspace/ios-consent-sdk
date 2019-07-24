@@ -86,6 +86,10 @@ import Foundation
     /**
      This method checks if the user reviewed the privacy policies enumerated in `ConsentsSettings` array. It returns whether or not the policies have been reviewed.
      */
+    @objc public static func check() -> NSNumber {
+        return NSNumber(value: check(with: defaultConsentsSettings))
+    }
+    
     public static func check(with consentsSettings: ConsentsSettings) -> Bool {
         var consentsHaveBeenSet = true
         consentsSettings.forEach { (key: SmartlookConsentSDK.Consent, value: SmartlookConsentSDK.ConsentState) in
